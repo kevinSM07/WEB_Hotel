@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CLIENTE</title>
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link href="Estilos/css/all.min.css" rel="stylesheet" />
+    <link href="Estilos/adminlte.min.css" rel="stylesheet" />
+
+    <script>
+        // Verificar si la página se ha cargado por primera vez
+        if (sessionStorage.getItem('firstLoad') === null) {
+            // Establecer la marca de que la página se ha cargado por primera vez
+            sessionStorage.setItem('firstLoad', '1');
+            // Redireccionar a la página deseada (por ejemplo, "nuevaPagina.html")
+            window.location.href = 'PaginaBase.html';
+        }
+    </script>
+
+</head>
+<body class="hold-transition sidebar-mini">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- left column -->
+                <div class="col-md-12" id="dvMenu">
+                </div>
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">GESTIÓN DE CLIENTE</h3>
+                        </div>
+                        <form id="frmIncapacidades">
+                            <div class="card-body">
+                                <div class="card card-gray-dark">
+                                    <div class="card-header">
+                                        <h3 class="card-title">DATOS CLIENTE</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtDocumento">DOCUMENTO</label>
+                                                    <input type="text" class="form-control" id="txtDocumento" placeholder="Documento">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtNombre">NOMBRE</label>
+                                                    <input type="text" class="form-control" id="txtNombre" placeholder="Nombre">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtApellido">APELLIDO</label>
+                                                    <input type="text" class="form-control" id="txtApellido" placeholder="Apellido">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtDireccion">DIRECCION</label>
+                                                    <input type="text" class="form-control" id="txtDireccion" placeholder="Dirección">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtTelefono">TELÉFONO</label>
+                                                    <input type="text" class="form-control" id="txtTelefono" placeholder="(XXX)-XXX-XXXX">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="txtCorreoElectronico">CORREO ELECTRONICO</label>
+                                                    <input type="text" class="form-control" id="txtCorreoElectronico" placeholder="Ejemplo@correo.com">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label for="cboTipoCliente">TIPO DE CLIENTE</label>
+                                                    <select id="cboTipoCliente" class="form-control">
+                                                        <option value="" disabled selected>Seleccione un tipo de cliente</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group text-center">
+                                                    <div>
+                                                        <label for="chk_IN">CHECK_IN</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" class="form-control" id="chk_IN" placeholder="Check_In">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group text-center">
+                                                    <div>
+                                                        <label for="chk_OUT">CHECK_OUT</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" class="form-control" id="chk_OUT" placeholder="Check_Out">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group text-center">
+                                                    <div>
+                                                        <label for="chkActivo">ACTIVO</label>
+                                                    </div>
+                                                    <div>
+                                                        <input type="checkbox" class="form-control" id="chkActivo" placeholder="Activo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-md-2 mx-3">
+                                            <br />
+                                            <button type="button" id="btnInsertar" class="btn-block btn-lg btn-primary">INSERTAR</button>
+                                        </div>
+                                        <div class="col-md-2 mx-3">
+                                            <br />
+                                            <button type="button" id="btnActualizar" class="btn-block btn-lg btn-primary">ACTUALIZAR</button>
+                                        </div>
+                                        <div class="col-md-2 mx-3">
+                                            <br />
+                                            <button type="button" id="btnEliminar" class="btn-block btn-lg btn-primary">ELIMINAR</button>
+                                        </div>
+                                        <div class="col-md-2 mx-3">
+                                            <br />
+                                            <button type="button" id="btnConsultar" class="btn-block btn-lg btn-primary">CONSULTAR</button>
+                                        </div>
+                                        <div class="col-md-2 mx-3">
+                                            <br />
+                                            <button type="button" id="btnLimpiar" class="btn-block btn-lg btn-primary">LIMPIAR</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer">
+                                <div id="dvMensaje" class=""></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../Scripts/jquery-3.4.1.min.js"></script>
+    <script src="../Scripts/bootstrap.bundle.min.js"></script>
+    <script src="Scripts/HOTEL/Clientes.js"></script>
+    <script src="Scripts/Comunes/Combos.js"></script>
+</body>
+</html>
