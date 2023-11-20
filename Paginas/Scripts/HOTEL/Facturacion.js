@@ -3,7 +3,7 @@ var oTabla = $("#tblFactura").DataTable();
 var TotalCompra = 0;
 jQuery(function () {
     $("#dvMenu").load("../Paginas/Menu.html");
-    $("#txtFechaCompra").val(FechaHoy());
+    $("#txtFecha").val(FechaHoy());
     $("#tblFactura tbody").on("click", 'tr', function () {
         //Levanta el evento del click sobre la tabla
         if ($(this).hasClass('selected')) {
@@ -45,6 +45,9 @@ jQuery(function () {
     LlenarComboPersonal();
     LlenarComboXServicios();
     LlenarComboModoPago();
+    LlenaTipoHabitaciones();
+    LlenarComboServiciosAdicionales();
+    LlenaComboSede();
     OcultarBotones();
 });
 //async function GrabarFactura() {
@@ -160,6 +163,27 @@ function LlenarComboModoPago() {
    LlenarComboXModoPago("http://localhost:53634/api/ModoPago", "#cboModoPago");
 }
 
+function LlenaComboSede() {
+    LlenarComboSedes("http://localhost:53634/api/Sede", "#cboSedes");
+}
+
+async function LlenaTipoHabitaciones() {
+    await LlenarComboTipoHabitaciones("http://localhost:53634/api/TipoHabitacion", "#cboTipoHabitacion");
+    LlenarComboHabitacion();
+}
+
+async function LlenarComboHabitacion() {
+    let tipoHabitacion = $("#cboTipoHabitacion").val();
+    await LlenarComboHabitaciones("http://localhost:53634/api/Habitaciones?tipoHabitacion=" + tipoHabitacion, "#cboHabitacion");
+}
+
+
+
+function LlenarComboServiciosAdicionales() {
+    LlenarComboServiciosAdd("http://localhost:53634/api/HabitacionesServicios", "#cboServicioAdicional");
+}
+
+
 //function CalcularSubtotal() {
 //    let DatosProducto = $("#cboProducto").val();
 //    let Cantidad = $("#txtCantidad").val();
@@ -174,7 +198,7 @@ function LlenarComboModoPago() {
 //}
 async function ConsultarCliente() {
     let Documento = $("#txtDocumento").val();
-
+   
     //Invocamos el servicio a través del fetch, usando el método fetch de javascript
     try {
         const Respuesta = await fetch("http://localhost:53634/api/Cliente?Documento=" + Documento,
@@ -189,10 +213,12 @@ async function ConsultarCliente() {
         //Se presenta la respuesta en el div mensaje
         $("#txtNombreCliente").val(Rpta.NOMBRE + " " + Rpta.APELLIDO);
         var idCliente = parseInt(Rpta.ID_CLIENTE);
+
     }
     catch (error) {
         //Se presenta la respuesta en el div mensaje
         $("#dvMensaje").html(error);
+        return alert('El documento no existe vuelva a intentar');
     }
 
     try {
@@ -209,8 +235,11 @@ async function ConsultarCliente() {
         $("#txtIdReserva").val(Rpta.ID_RESERVA);
         $("#txtNombreReservante").val(Rpta.NOMBRE);
         $("#txtCantidad").val(Rpta.CANTIDAD_C);
-
-
+        $("#cboServicios").val(Rpta.ID_SERVICIO);
+        $("#cboSedes").val(Rpta.ID_SEDE);
+        $("#cboHabitacion").val(Rpta.NUMERO_HABITACION);
+        var idHabitacion = (Rpta.NUMERO_HABITACION);
+        var idServicio = Rpta.ID_SERVICIO;
     }
     catch (error) {
         //Se presenta la respuesta en el div mensaje
@@ -218,7 +247,7 @@ async function ConsultarCliente() {
     }
 
     try {
-        const Respuesta = await fetch("http://localhost:53634/api/Reservas?idCliente=" + idCliente,
+        const Respuesta = await fetch("http://localhost:53634/api/Servicio?idServicio=" + idServicio,
             {
                 method: "GET",
                 mode: "cors",
@@ -228,16 +257,54 @@ async function ConsultarCliente() {
             });
         const Rpta = await Respuesta.json();
         //Se presenta la respuesta en el div mensaje
-        $("#txtIdReserva").val(Rpta.ID_RESERVA);
-        $("#txtNombreReservante").val(Rpta.NOMBRE);
-        $("#txtCantidad").val(Rpta.CANTIDAD_C);
-
-
+        $("#txtValorServicio").val(Rpta.PRECIO);
+        var precioServicio = parseInt(Rpta.PRECIO);
     }
     catch (error) {
         //Se presenta la respuesta en el div mensaje
         $("#dvMensaje").html(error);
     }
 
+    var Nada = "Nada"
+    const url = `http://localhost:53634/api/Habitaciones?idHabitacion=${idHabitacion}&Nada=${Nada}`;
+    try {
+        const Respuesta = await fetch(url,
+            {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+        const Rpta = await Respuesta.json();
+        $("#txtValorHabitacion").val(Rpta.TARIFA_NOCHE);
+        var idServiciosAdicionales = (Rpta.NUMERO_HABITACION);
+        var precioTarifaNoche = parseInt(Rpta.TARIFA_NOCHE);
+    }
+    catch (error) {
+        //Se presenta la respuesta en el div mensaje
+        $("#dvMensaje").html(error);
+    }
+
+    try {
+        const Respuesta = await fetch("http://localhost:53634/api/HabitacionesServicios?idServiciosAdicionales=" + idServiciosAdicionales,
+            {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+        const Rpta = await Respuesta.json();
+        $("#cboServicioAdicional").val(Rpta.ID_HABITACIONES_SERVICIOS);
+        $("#txtValorServAdd").val(Rpta.PRECIO);
+        var precioServAdicional = parseInt(Rpta.PRECIO);
+    }
+    catch (error) {
+        //Se presenta la respuesta en el div mensaje
+        $("#dvMensaje").html(error);
+    }
+    $("#txtTotaPago").val(precioServAdicional + precioTarifaNoche + precioServicio);
+    
 
 }

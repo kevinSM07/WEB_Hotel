@@ -43,8 +43,8 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="txtTotalPagar">Total a pagar</label>
-                                            <input type="text" class="form-control" id="txtTotalPagar" placeholder="Total de la compra" disabled>
+                                            <label for="txtTotaPago">Total a pagar</label>
+                                            <input type="text" class="form-control" id="txtTotaPago" placeholder="Total de la compra" disabled>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -61,8 +61,8 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="txtFechaCompra">Fecha de compra</label>
-                                            <input type="text" class="form-control" id="txtFechaCompra" placeholder="Fecha de la compra" disabled>
+                                            <label for="txtFecha">Fecha</label>
+                                            <input type="text" class="form-control" id="txtFecha" placeholder="Fecha de la compra" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -94,36 +94,54 @@
                                 <div class="row">
                                     <div class="col-md-3">
                                         <div class="form-group">
-                                            <label for="cboSede">Sede</label>
-                                            <!-- Se levanta el evento onchange cuando se elige un tipo de producto -->
-                                            <select id="cboSede" class="form-control select2" style="width: 100%;">
-                                                <option selected="selected" value="0">Seleccione una sede</option>
+                                            <label for="cboTipoHabitacion">Tipo Habitacion</label>
+                                            <select id="cboTipoHabitacion" class="form-control select2" style="width: 100%;">
+                                                <option selected="selected" value="0">Seleccione un Tipo de habitacion</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="cboHabitacion">Habitacion</label>
-                                            <!--En el combo producto se levanta el evento on change, para que calcule el valor unitario del producto seleccinado-->
                                             <select id="cboHabitacion" class="form-control select2" style="width: 100%;">
                                                 <option selected="selected" value="0">Seleccione la habitacion</option>
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="cboSedes">Sede</label>
+                                            <select id="cboSedes" class="form-control select2" style="width: 100%;">
+                                                <option selected="selected" value="0">Seleccione una sede</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <!--Cuando cambia la cantidad se recalcula el valor unitario-->
                                             <label for="txtCantidad">Cantidad de personas</label>
                                             <input type="number" class="form-control" id="txtCantidad" placeholder="Cantidad" value="1">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="txtValorUnitario">Valor Habitacion</label>
-                                            <input type="text" class="form-control" id="txtValorUnitarioTexto" placeholder="Valor producto" disabled>
-                                            <!--Se agregan textos ocultos para facilitar la captura de la información y no repetir procesos-->
-                                            <input type="text" class="form-control" id="txtValorUnitario" placeholder="Valor producto" hidden>
-                                            <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Codigo producto" hidden>
+                                            <label for="txtValorHabitacion">Valor Habitacion</label>
+                                            <input type="text" class="form-control" id="txtValorHabitacion" placeholder="Valor Habitacion" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="cboServicioAdicional">Servicio Adicional</label>
+                                            <select id="cboServicioAdicional" class="form-control select2" style="width: 100%;">
+                                                <option selected="selected" value="0">Seleccione un servicio ADD</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label for="txtValorServAdd">Valor Servicio Adicional</label>
+                                            <input type="text" class="form-control" id="txtValorServAdd" placeholder="Valor Servicio Adicional" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -137,7 +155,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <div class="form-group">
                                             <label for="cboModoPago">Modo Pago</label>
                                             <!--En el combo producto se levanta el evento on change, para que calcule el valor unitario del producto seleccinado-->
@@ -150,19 +168,8 @@
 
                                     <div class="col-md-2">
                                         <div class="form-group">
-                                            <label for="txtValorUnitario">Valor Servicio</label>
-                                            <input type="text" class="form-control" id="txtValorUnitarioTexto" placeholder="Valor producto" disabled>
-                                            <!--Se agregan textos ocultos para facilitar la captura de la información y no repetir procesos-->
-                                            <input type="text" class="form-control" id="txtValorUnitario" placeholder="Valor producto" hidden>
-                                            <input type="text" class="form-control" id="txtCodigoProducto" placeholder="Codigo producto" hidden>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <label for="txtSubtotal">Subtotal</label>
-                                            <input type="text" class="form-control" id="txtSubtotal" placeholder="Subtotal" disabled>
+                                            <label for="txtValorServicio">Valor Servicio</label>
+                                            <input type="text" class="form-control" id="txtValorServicio" placeholder="Valor servicio" disabled>
                                         </div>
                                     </div>
                                 </div>

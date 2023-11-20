@@ -30,8 +30,9 @@ function LlenaServiciosAdicionales() {
 
 
 async function Consultar() {
-    //Capturo los datos de entrada
+    // Capturo los datos de entrada
     let idHabitacion = $("#txtNumHabitacion").val();
+    let Nada = "Prueba";
 
     $("#cboTipoHabitacion").val('');
     $("#txtTarifaNoche").val('');
@@ -39,19 +40,21 @@ async function Consultar() {
     $("#txtDescriopcionServ").val('');
     $("#chkDisponibilidad").prop('checked', false);
     $("#chkActivo").prop('checked', false);
-    $("#dvMensaje").html('')
-    //Invocamos el servicio a través del fetch, usando el método fetch de javascript
+    $("#dvMensaje").html('');
+
+    // Construir la URL con ambos parámetros
+    const url = `http://localhost:53634/api/Habitaciones?idHabitacion=${idHabitacion}&Nada=${Nada}`;
+
+    // Invocamos el servicio a través del fetch, usando el método fetch de JavaScript
     try {
-        const Respuesta = await fetch("http://localhost:53634/api/Habitaciones?idHabitacion=" + idHabitacion,
-            {
-                method: "GET",
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            });
+        const Respuesta = await fetch(url, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
         const Rpta = await Respuesta.json();
-        //Se presenta la respuesta en el div mensaje
         $("#txtNumHabitacion").val(Rpta.NUMERO_HABITACION);
         $("#cboTipoHabitacion").val(Rpta.ID_TIPO_HABITACION);
         $("#txtTarifaNoche").val(Rpta.TARIFA_NOCHE);
@@ -60,13 +63,14 @@ async function Consultar() {
         $("#chkDisponibilidad").prop('checked', Rpta.DISPONIBILIDAD);
         $("#chkActivo").prop('checked', Rpta.ACTIVO);
         $("#dvMensaje").html('');
-    }
-    catch (error) {
-        //Se presenta la respuesta en el div mensaje
+
+    } catch (error) {
+        // Se presenta el error en el div mensaje
         $("#txtNumHabitacion").val(idHabitacion);
-        $("#dvMensaje").html(error);
+        $("#dvMensaje").html(error.message);
     }
 }
+
 async function EjecutarComandos(Comando) {
     //Capturo los datos de entrada
     let idHabitacion = $("#txtNumHabitacion").val();
