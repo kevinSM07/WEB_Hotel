@@ -97,6 +97,31 @@ async function LlenarComboTipoHabitaciones(urlServicio, ComboLlenar) {
     }
 }
 
+//Llenar combo para Habitaciones
+async function LlenarComboHabitaciones(urlServicio, ComboLlenar) {
+    //Invocar el servicio
+    try {
+        const Respuesta = await fetch(urlServicio,
+            {
+                method: "GET",
+                mode: "cors",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            });
+        const Rpta = await Respuesta.json();
+        //En Rpta, está el listado de los elementos del combo
+        //Recorrer la lista para agregarla al combo
+        for (i = 0; i < Rpta.length; i++) {
+            $(ComboLlenar).append('<option value=' + Rpta[i].NUMERO_HABITACION + '>' + "Nro. " + Rpta[i].NUMERO_HABITACION + '</option>')
+        }
+    }
+    catch (error) {
+        //Se presenta la respuesta en el div mensaje
+        $("#dvMensaje").html(error);
+    }
+}
+
 //Llenar combo para Servicios
 async function LlenarComboServicios(urlServicio, ComboLlenar) {
     //Invocar el servicio
@@ -122,6 +147,8 @@ async function LlenarComboServicios(urlServicio, ComboLlenar) {
     }
 }
 
+
+//Llenar combo para Servicios Adicionales
 async function LlenarComboServiciosAdd(urlServicio, ComboLlenar) {
     //Invocar el servicio
     try {
@@ -222,7 +249,7 @@ async function LlenarComboXModoPago(urlServicio, ComboLlenar) {
     }
 }
 
-//Llenar combo para ModoPago
+//Llenar combo para Personal
 async function LlenarComboXPersonal(urlServicio, ComboLlenar) {
     //Invocar el servicio
     try {
